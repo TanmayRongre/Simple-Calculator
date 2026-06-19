@@ -110,3 +110,21 @@ input[type="number"]:focus {
   font-size: 0.95rem;
   word-break: break-all;
 }
+
+.clear-btn {
+  width: 100%;
+  padding: 10px;
+  background: #4a4a6a;
+  color: var(--text-main);
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: background 0.2s;
+}
+
+.clear-btn:hover {
+  background: #5a5a8a;
+}

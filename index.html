@@ -1,86 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="calc-card">
-        <h1>Calculator</h1>
-        
-        <div class="input-group">
-            <label for="num1">First Number</label>
-            <input type="number" id="num1" placeholder="Enter first number">
-        </div>
-        
-        <div class="input-group">
-            <label for="num2">Second Number</label>
-            <input type="number" id="num2" placeholder="Enter second number">
-        </div>
+  <div class="calc-card">
+    <h1>Calculator</h1>
 
-        <label>Select Operation</label>
-        <div class="grid-operators">
-          <button class="op-btn" onclick="executeCalculation('+')"> + </button>
-          <button class="op-btn" onclick="executeCalculation('-')"> - </button>
-          <button class="op-btn" onclick="executeCalculation('*')"> × </button>
-          <button class="op-btn" onclick="executeCalculation('/')"> ÷ </button>
-          <button class="op-btn" onclick="executeCalculation('%')"> % </button>
-          <button class="op-btn" onclick="executeCalculation('**')"> ^ </button>
-        </div>
-
-        <label>Last Screen Result</label>
-        <div class="history-panel" id="screenDisplay">No operation performed yet.</div>
+    <div class="input-group">
+      <label for="num1">First Number</label>
+      <input type="number" id="num1" placeholder="Enter first number">
     </div>
 
-    <script>
-        const add = (a, b) => a + b;
-        const subtract = (a, b) => a - b;
-        const multiply = (a, b) => a * b;
-        const divide = (a, b) => b !== 0 ? a / b : "Cannot divide by zero";
-        const modulus = (a, b) => b !== 0 ? a % b : "Cannot find modulus by zero";
-        const exponent = (a, b) => a ** b;
+    <div class="input-group">
+      <label for="num2">Second Number</label>
+      <input type="number" id="num2" placeholder="Enter second number">
+    </div>
 
-        const executeCalculation = (operator) => {
-            const val1 = document.getElementById('num1').value;
-            const val2 = document.getElementById('num2').value;
-            const num1 = Number(val1);
-            const num2 = Number(val2);
-            let result;
-            let opName = "";
-            
-            switch (operator) {
-                case '+':
-                    result = add(num1, num2);
-                    opName = "Addition";
-                    break;
-                case '-':
-                    result = subtract(num1, num2);
-                    opName = "Subtraction";
-                    break;
-                case '*':
-                    result = multiply(num1, num2);
-                    opName = "Multiplication";
-                    break;
-                case '/':
-                    result = divide(num1, num2);
-                    opName = "Division";
-                    break;
-                case '%':
-                    result = modulus(num1, num2);
-                    opName = "Modulus";
-                    break;
-                case '**':
-                    result = exponent(num1, num2);
-                    opName = "Exponentiation";
-                    break;
-            }
-            
-            alert(`Operation: ${opName}\nCalculation: ${num1} ${operator} ${num2}\nResult: ${result}`);
+    <label>Select Operation</label>
+    <div class="grid-operators">
+      <button class="op-btn" onclick="executeCalculation('+')"> + </button>
+      <button class="op-btn" onclick="executeCalculation('-')"> - </button>
+      <button class="op-btn" onclick="executeCalculation('*')"> × </button>
+      <button class="op-btn" onclick="executeCalculation('/')"> ÷ </button>
+      <button class="op-btn" onclick="executeCalculation('%')"> % </button>
+      <button class="op-btn" onclick="executeCalculation('**')"> ^ </button>
+    </div>
 
-            document.getElementById('screenDisplay').innerText = `${num1} ${operator} ${num2} = ${result}`;
-        };
-    </script>
+          <button class="clear-btn" onclick="clearCalculator()">Clear Canvas 🧹</button>
+
+    <label>Last Screen Result</label>
+    <div class="history-panel" id="screenDisplay">No operation performed yet.</div>
+  </div>
+
+  <script>
+    const add = (a, b) => a + b;
+    const subtract = (a, b) => a - b;
+    const multiply = (a, b) => a * b;
+    const divide = (a, b) => b !== 0 ? a / b : "Cannot divide by zero";
+    const modulus = (a, b) => b !== 0 ? a % b : "Cannot find modulus by zero";
+    const exponent = (a, b) => a ** b;
+
+    const clearCalculator = () => {
+      document.getElementById('num1').value = '';
+      document.getElementById('num2').value = '';
+      document.getElementById('screenDisplay').innerText = 'No operation performed yet.';
+    };
+
+    const executeCalculation = (operator) => {
+      const val1 = document.getElementById('num1').value;
+      const val2 = document.getElementById('num2').value;
+      const num1 = Number(val1);
+      const num2 = Number(val2);
+      let result;
+      let opName = "";
+
+      switch (operator) {
+        case '+':
+          result = add(num1, num2);
+          opName = "Addition";
+          break;
+        case '-':
+          result = subtract(num1, num2);
+          opName = "Subtraction";
+          break;
+        case '*':
+          result = multiply(num1, num2);
+          opName = "Multiplication";
+          break;
+        case '/':
+          result = divide(num1, num2);
+          opName = "Division";
+          break;
+        case '%':
+          result = modulus(num1, num2);
+          opName = "Modulus";
+          break;
+        case '**':
+          result = exponent(num1, num2);
+          opName = "Exponentiation";
+          break;
+      }
+
+      alert(`Operation: ${opName}\nCalculation: ${num1} ${operator} ${num2}\nResult: ${result}`);
+
+      document.getElementById('screenDisplay').innerText = `${num1} ${operator} ${num2} = ${result}`;
+    };
+  </script>
 </body>
+
 </html>
