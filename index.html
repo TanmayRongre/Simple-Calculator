@@ -4,162 +4,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator</title>
+  <title>Calculator — Tanmay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div class="calc-card">
-    <h1>Calculator</h1>
 
+  <div class="calc-card">
+    <h1>Calculator<span class="dot">.</span></h1>
+
+    <!-- INPUT FIELDS: The user types numbers here -->
     <div class="input-group">
       <label for="num1">First Number</label>
-      <input type="number" id="num1" placeholder="Enter first number">
+      <input type="number" id="num1" placeholder="e.g. 10">
     </div>
 
     <div class="input-group">
-      <label for="num2">Second Number</label>
-      <input type="number" id="num2" placeholder="Enter second number">
+      <label for="num2">Second Number <span class="hint">(not needed for √, x², !, |x|, log, sin)</span></label>
+      <input type="number" id="num2" placeholder="e.g. 5">
     </div>
 
-    <label>Select Operation</label>
+    <!-- OPERATOR BUTTONS: Each calls calculate() with its own operator symbol -->
+    <label>Choose an Operation</label>
     <div class="grid-operators">
-      <button class="op-btn" onclick="executeCalculation('+')"> + </button>
-      <button class="op-btn" onclick="executeCalculation('-')"> - </button>
-      <button class="op-btn" onclick="executeCalculation('*')"> × </button>
-      <button class="op-btn" onclick="executeCalculation('/')"> ÷ </button>
-      <button class="op-btn" onclick="executeCalculation('%')"> % </button>
-      <button class="op-btn" onclick="executeCalculation('**')"> ^ </button>
-      <button class="op-btn" onclick="executeCalculation('sqrt')"> √ </button>
-      <button class="op-btn" onclick="executeCalculation('sq')"> x² </button>
-      <button class="op-btn" onclick="executeCalculation('fact')"> ! </button>
-      <button class="op-btn" onclick="executeCalculation('abs')"> |x| </button>
-      <button class="op-btn" onclick="executeCalculation('log')"> log </button>
-      <button class="op-btn" onclick="executeCalculation('sin')"> sin </button>
+      <button class="op-btn" onclick="calculate('+')">+</button>
+      <button class="op-btn" onclick="calculate('-')">−</button>
+      <button class="op-btn" onclick="calculate('*')">×</button>
+      <button class="op-btn" onclick="calculate('/')">÷</button>
+      <button class="op-btn" onclick="calculate('%')">%</button>
+      <button class="op-btn" onclick="calculate('**')">xⁿ</button>
+      <button class="op-btn" onclick="calculate('sqrt')">√</button>
+      <button class="op-btn" onclick="calculate('sq')">x²</button>
+      <button class="op-btn" onclick="calculate('fact')">n!</button>
+      <button class="op-btn" onclick="calculate('abs')">|x|</button>
+      <button class="op-btn" onclick="calculate('log')">log</button>
+      <button class="op-btn" onclick="calculate('sin')">sin</button>
     </div>
 
-    <button class="clear-btn" onclick="clearCalculator()">Clear Canvas 🧹</button>
+    <button class="clear-btn" onclick="clearAll()">Clear 🧹</button>
 
-    <label>Last Screen Result</label>
-    <div class="history-panel" id="screenDisplay">No operation performed yet.</div>
+    <!-- RESULT DISPLAY: JS writes the answer here -->
+    <label>Result</label>
+    <div class="result-box" id="resultBox">—</div>
   </div>
 
-  <script>
-    const add = (a, b) => a + b;
-    const subtract = (a, b) => a - b;
-    const multiply = (a, b) => a * b;
-    const divide = (a, b) => b !== 0 ? a / b : "Cannot divide by zero";
-    const modulus = (a, b) => b !== 0 ? a % b : "Cannot find modulus by zero";
-    const exponent = (a, b) => a ** b;
-    const sqrt = (a) => a >= 0 ? Math.sqrt(a) : "Invalid Input";
-    const square = (a) => a * a;
-    const factorial = (a) => {
-      if (a < 0 || !Number.isInteger(a)) return "Invalid Input";
-      if (a === 0 || a === 1) return 1;
-      let res = 1;
-      for (let i = 2; i <= a; i++) res *= i;
-      return res;
-    };
-    const absolute = (a) => Math.abs(a);
-    const logarithm = (a) => a > 0 ? Math.log10(a) : "Invalid Input";
-    const sine = (a) => Math.sin(a * Math.PI / 180);
-
-    const clearCalculator = () => {
-      document.getElementById('num1').value = '';
-      document.getElementById('num2').value = '';
-      document.getElementById('screenDisplay').innerText = 'No operation performed yet.';
-    };
-
-    const executeCalculation = (operator) => {
-      const val1 = document.getElementById('num1').value;
-      const val2 = document.getElementById('num2').value;
-      const num1 = Number(val1);
-      const num2 = Number(val2);
-      let result;
-      let opName = "";
-      let logText = "";
-
-      switch (operator) {
-        case '+':
-          result = add(num1, num2);
-          opName = "Addition";
-          logText = `${num1} + ${num2}`;
-          break;
-        case '-':
-          result = subtract(num1, num2);
-          opName = "Subtraction";
-          logText = `${num1} - ${num2}`;
-          break;
-        case '*':
-          result = multiply(num1, num2);
-          opName = "Multiplication";
-          logText = `${num1} * ${num2}`;
-          break;
-        case '/':
-          result = divide(num1, num2);
-          opName = "Division";
-          logText = `${num1} / ${num2}`;
-          break;
-        case '%':
-          result = modulus(num1, num2);
-          opName = "Modulus";
-          logText = `${num1} % ${num2}`;
-          break;
-        case '**':
-          result = exponent(num1, num2);
-          opName = "Exponentiation";
-          logText = `${num1} ** ${num2}`;
-          break;
-        case 'sqrt':
-          result = sqrt(num1);
-          opName = "Square Root";
-          logText = `√(${num1})`;
-          break;
-        case 'sq':
-          result = square(num1);
-          opName = "Square";
-          logText = `(${num1})²`;
-          break;
-        case 'fact':
-          result = factorial(num1);
-          opName = "Factorial";
-          logText = `${num1}!`;
-          break;
-        case 'abs':
-          result = absolute(num1);
-          opName = "Absolute Value";
-          logText = `|${num1}|`;
-          break;
-        case 'log':
-          result = logarithm(num1);
-          opName = "Logarithm (Base 10)";
-          logText = `log10(${num1})`;
-          break;
-        case 'sin':
-          result = sine(num1);
-          opName = "Sine (Degrees)";
-          logText = `sin(${num1}°)`;
-          break;
-      }
-
-      alert(`Operation: ${opName}\nCalculation: ${logText}\nResult: ${result}`);
-
-      // FIXED: Defined the missing checker variable right before it's used below
-      const isSingleNum = ['sqrt', 'sq', 'fact', 'abs', 'log', 'sin'].includes(operator);
-
-      console.log("---- LOG SUBMISSION ----");
-      console.log(`First Input   : ${num1}`);
-      if (!isSingleNum) {
-        console.log(`Second Input  : ${num2}`);
-      }
-      console.log(`Operation Run : ${opName}`);
-      console.log(`Equation Look : ${logText}`);
-      console.log(`Output Result : ${result}`);
-      console.log("------------------------");
-
-      document.getElementById('screenDisplay').innerText = `${logText} = ${result}`;
-    };
-  </script>
+  <script src="script.js"></script>
 </body>
 
 </html>

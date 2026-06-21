@@ -1,130 +1,201 @@
+/* =============================================
+   DESIGN TOKENS — change colours here only
+   ============================================= */
 :root {
-  --bg-dark: #12121c;
-  --bg-card: #22223b;
-  --bg-input: #161626;
-  --accent: #00e5ff;
-  --text-main: #ffffff;
-  --text-muted: #b3b3cc;
-  --border-color: #3c3c5c;
+  --bg-color:    #0f0e0d;       /* page background */
+  --card-bg:     rgba(255, 255, 255, 0.04);  /* calculator card */
+  --input-bg:    rgba(255, 255, 255, 0.03);  /* input fields */
+  --border:      rgba(255, 255, 255, 0.08);  /* subtle borders */
+  --accent:      #FF4A1C;       /* orange — matches your portfolio */
+  --accent-glow: rgba(255, 74, 28, 0.35);
+  --text:        #fff6ee;       /* off-white text */
+  --text-muted:  #a19d9a;       /* grey text */
+}
+
+/* =============================================
+   RESET + BASE
+   ============================================= */
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: linear-gradient(135deg, var(--bg-dark), #1a1a2e);
-  color: var(--text-main);
+  padding: 2rem 1rem;
+  background-color: var(--bg-color);
+  background-image: radial-gradient(circle at 50% 0%, #2a1f1c 0%, var(--bg-color) 70%);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text);
 }
 
+/* =============================================
+   CARD — the white box that wraps everything
+   ============================================= */
 .calc-card {
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   padding: 2rem;
-  background: var(--bg-card);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  box-sizing: border-box;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
 }
 
+/* =============================================
+   HEADING
+   ============================================= */
 h1 {
   text-align: center;
-  margin: 0 0 1.5rem 0;
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.75rem;
+  color: var(--text);
+}
+
+h1 .dot {
   color: var(--accent);
+  text-shadow: 0 0 12px var(--accent-glow);
 }
 
-.input-group {
-  margin-bottom: 1.25rem;
-}
-
+/* =============================================
+   LABELS
+   ============================================= */
 label {
   display: block;
-  margin-bottom: 6px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.hint {
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* =============================================
+   INPUT FIELDS
+   ============================================= */
+.input-group {
+  margin-bottom: 1.25rem;
 }
 
 input[type="number"] {
   width: 100%;
   padding: 12px 14px;
-  background: var(--bg-input);
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  color: var(--text-main);
-  font-size: 1.1rem;
-  box-sizing: border-box;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Focus state — highlights field when user clicks it */
 input[type="number"]:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
+/* Removes the ugly spinner arrows on number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/* =============================================
+   OPERATOR BUTTONS GRID
+   ============================================= */
 .grid-operators {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin: 0.5rem 0 1.75rem 0;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 10px;
+  margin: 0.5rem 0 1.5rem 0;
 }
 
 .op-btn {
-  padding: 14px;
-  background: #323254;
-  color: var(--text-main);
-  font-size: 1.25rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
+  padding: 14px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
 }
 
 .op-btn:hover {
   background: var(--accent);
-  color: #12121c;
+  border-color: var(--accent);
+  color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 229, 255, 0.25);
+  box-shadow: 0 6px 18px var(--accent-glow);
 }
 
 .op-btn:active {
-  transform: translateY(0);
+  transform: translateY(0);   /* snaps back when you click */
 }
 
-.history-panel {
-  min-height: 20px;
-  padding: 12px 16px;
-  background: var(--bg-input);
-  border-radius: 8px;
-  color: #a2e8dd;
-  font-family: 'Consolas', 'Courier New', monospace;
-  font-size: 0.95rem;
-  word-break: break-all;
-}
-
+/* =============================================
+   CLEAR BUTTON
+   ============================================= */
 .clear-btn {
   width: 100%;
-  padding: 10px;
-  background: #4a4a6a;
-  color: var(--text-main);
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
+  padding: 11px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: 10px;
   cursor: pointer;
   margin-bottom: 1.5rem;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
 
 .clear-btn:hover {
-  background: #5a5a8a;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* =============================================
+   RESULT BOX — where the answer appears
+   ============================================= */
+.result-box {
+  padding: 14px 16px;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--accent);
+  font-family: 'Poppins', monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Glows orange when a result is shown */
+.result-box.has-result {
+  box-shadow: 0 0 20px var(--accent-glow);
 }
